@@ -1,0 +1,105 @@
+[
+  {
+    "id": "c1-pipeline-build",
+    "n_frames": 5,
+    "labels": [
+      "Input",
+      "Encoder",
+      "Output"
+    ],
+    "connections": [
+      [
+        "Input",
+        "Encoder"
+      ],
+      [
+        "Encoder",
+        "Output"
+      ]
+    ],
+    "overlays": [],
+    "build_order": [
+      "Input box appears",
+      "Encoder box appears",
+      "arrow Input to Encoder",
+      "Output box appears",
+      "arrow Encoder to Output"
+    ]
+  },
+  {
+    "id": "c2-bottleneck-highlight",
+    "n_frames": 5,
+    "labels": [
+      "Input",
+      "Encoder",
+      "Latent",
+      "Decoder",
+      "Output"
+    ],
+    "connections": [
+      [
+        "Input",
+        "Encoder"
+      ],
+      [
+        "Encoder",
+        "Latent"
+      ],
+      [
+        "Latent",
+        "Decoder"
+      ],
+      [
+        "Decoder",
+        "Output"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "highlight",
+        "target": "Latent"
+      }
+    ],
+    "build_order": [
+      "Input box appears",
+      "Encoder box appears",
+      "Latent box appears",
+      "Decoder box appears",
+      "Output box appears",
+      "highlight drawn around Latent"
+    ]
+  },
+  {
+    "id": "c3-compare-callout",
+    "n_frames": 5,
+    "labels": [
+      "Data",
+      "Baseline",
+      "Ours"
+    ],
+    "connections": [
+      [
+        "Data",
+        "Baseline"
+      ],
+      [
+        "Data",
+        "Ours"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "callout",
+        "target": "Ours"
+      }
+    ],
+    "build_order": [
+      "Data box appears",
+      "Baseline box appears",
+      "Ours box appears",
+      "arrow Data to Baseline",
+      "arrow Data to Ours",
+      "callout '2x faster' appears"
+    ]
+  }
+]

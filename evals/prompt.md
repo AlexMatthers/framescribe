@@ -1,20 +1,22 @@
-# FrameScribe vision eval — task prompt
+# FrameScribe vision eval — video-snippet task prompt
 
-You are being evaluated on a **vision** task. For **each** image in `evals/figures/`
-(read all six PNGs with your file-read tool so they are attached), produce one JSON object
-describing the diagram under the FrameScribe contract.
+You are being evaluated on a **video** task. Each item in `evals/clips/` is a short clip
+delivered as an **ordered frame sequence** (`frame_00.png`, `frame_01.png`, …) showing a
+diagram being **built up**. Read every frame of every clip (attach them with your file-read
+tool), in order.
 
-Return **ONLY** a JSON array of six objects, no prose:
+For **each** clip, reconstruct what was drawn and in what order, under the FrameScribe
+contract. Return ONLY a JSON array of three objects, no prose:
 
 ```json
 [
   {
-    "figure_id": "f1-pipeline",
+    "figure_id": "c1-pipeline-build",
     "final_state": "<one sentence: the fully-drawn diagram>",
-    "build_order": ["<ordered step>"],
+    "build_order": ["<what appeared first>", "<next>", "..."],
     "overlays": [{"kind": "<highlight|circle|callout|annotation|arrow|underline>", "description": "<what is emphasised>"}],
     "diagram": {
-      "labels": ["<exact text in each box, in reading order>"],
+      "labels": ["<exact text in each box>"],
       "connections": [["<from label>", "<to label>"]],
       "overlays": [{"kind": "<kind>", "target": "<label or none>"}]
     }
@@ -23,9 +25,9 @@ Return **ONLY** a JSON array of six objects, no prose:
 ```
 
 Rules:
-- Transcribe box labels **exactly** as shown.
-- `connections` are **directed arrows**, from → to, using the exact labels.
-- `overlays` are any red/emphasis marks: a highlighted box (kind `highlight`), a red circle
-  (`circle`), or red text (`callout`/`annotation`). `target` is the label it applies to.
-- If a figure shows no build-up, `build_order` is `[]`.
-- Keep `final_state` to one sentence. Do not add commentary outside the JSON.
+- `build_order` must reflect the **order things appeared across the frames** (boxes added,
+  arrows drawn, highlights/callouts added).
+- Transcribe box labels **exactly**; `connections` are **directed arrows** (from → to).
+- `overlays` are red/emphasis marks: a highlighted box (`highlight`), a red circle
+  (`circle`), or red text (`callout`/`annotation`).
+- Keep `final_state` to one sentence; no commentary outside the JSON.

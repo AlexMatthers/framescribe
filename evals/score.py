@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Score vision-model results against evals/ground-truth.json.
+"""Score vision-model (video) results against evals/clips-ground-truth.json.
+
+Quality axes: label recall, connection recall, overlay recall, build-order recall; plus
+the mean. Results live in evals/results/<model>.json (a JSON array of per-clip objects).
 
     uv run python evals/score.py
 """
@@ -10,7 +13,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-GT = {g["id"]: g for g in json.loads((ROOT / "ground-truth.json").read_text(encoding="utf-8"))}
+GT = {g["id"]: g for g in json.loads((ROOT / "clips-ground-truth.json").read_text(encoding="utf-8"))}
 
 
 def norm(s: str) -> str:
@@ -24,22 +27,33 @@ def _label_hit(label: str, pred_labels: list[str], final_state: str) -> bool:
     return bool(n) and n in norm(final_state)
 
 
-def score(figs: list) -> dict:
-    by = {str(f.get("figure_id")): f for f in figs if isinstance(f, dict)}
-    tl = tlh = tc = tch = to = toh = valid = 0
+def _step_hit(step: str, pred_steps: list[str]) -> bool:
+    want = set(norm(step).split())
+    for p in pred_steps:
+        got = set(norm(p).split())
+        if want and len(want & got) / len(want) >= 0.6:
+            return True
+    return False
+
+
+def score(clips: list) -> dict:
+    by = {str(c.get("figure_id")): c for c in clips if isinstance(c, dict)}
+    tl = tlh = tc = tch = to = toh = tb = tbh = valid = 0
     for fid, g in GT.items():
-        f = by.get(fid)
-        if not f:
+        c = by.get(fid)
+        if not c:
             continue
-        d = f.get("diagram") if isinstance(f.get("diagram"), dict) else {}
+        d = c.get("diagram") if isinstance(c.get("diagram"), dict) else {}
         plabels = [str(x) for x in (d.get("labels") or [])]
-        fs = str(f.get("final_state", ""))
+        fs = str(c.get("final_state", ""))
         tl += len(g["labels"])
         tlh += sum(1 for L in g["labels"] if _label_hit(L, plabels, fs))
-        pconn = {tuple(norm(x) for x in c) for c in (d.get("connections") or [])
-                 if isinstance(c, list) and len(c) == 2}
+
+        pconn = {tuple(norm(x) for x in p) for p in (d.get("connections") or [])
+                 if isinstance(p, list) and len(p) == 2}
         tc += len(g["connections"])
         tch += sum(1 for a, b in g["connections"] if (norm(a), norm(b)) in pconn)
+
         pov = [o for o in (d.get("overlays") or []) if isinstance(o, dict)]
 
         def ov_hit(o: dict) -> bool:
@@ -54,15 +68,21 @@ def score(figs: list) -> dict:
 
         to += len(g["overlays"])
         toh += sum(1 for o in g["overlays"] if ov_hit(o))
-        if d:
+
+        psteps = [str(s) for s in (c.get("build_order") or [])]
+        tb += len(g["build_order"])
+        tbh += sum(1 for s in g["build_order"] if _step_hit(s, psteps))
+
+        if d and psteps is not None:
             valid += 1
 
     def r(a: int, b: int) -> float:
         return round(a / b, 3) if b else 1.0
 
-    lr, cr, orr = r(tlh, tl), r(tch, tc), r(toh, to)
-    return {"figures_scored": valid, "label_recall": lr, "connection_recall": cr,
-            "overlay_recall": orr, "mean_recall": round((lr + cr + orr) / 3, 3)}
+    lr, cr, orr, br = r(tlh, tl), r(tch, tc), r(toh, to), r(tbh, tb)
+    return {"clips_scored": valid, "label_recall": lr, "connection_recall": cr,
+            "overlay_recall": orr, "build_order_recall": br,
+            "mean_recall": round((lr + cr + orr + br) / 4, 3)}
 
 
 def main() -> int:
@@ -71,13 +91,13 @@ def main() -> int:
     rows = []
     for f in sorted(results.glob("*.json")):
         try:
-            figs = json.loads(f.read_text(encoding="utf-8"))
+            clips = json.loads(f.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             rows.append({"model": f.stem, "error": "invalid JSON"})
             continue
-        if isinstance(figs, dict):
-            figs = figs.get("figures", [])
-        rows.append({"model": f.stem, **score(figs)})
+        if isinstance(clips, dict):
+            clips = clips.get("clips", clips.get("figures", []))
+        rows.append({"model": f.stem, **score(clips)})
     print(json.dumps(rows, indent=2))
     (ROOT / "report.json").write_text(json.dumps(rows, indent=2), encoding="utf-8")
     return 0
