@@ -1,0 +1,57 @@
+{
+  "run_id": "p002-m1-engine",
+  "repo": "E:/mnemosyne/auxiliary-projects/p002",
+  "max_parallel": 3,
+  "tasks": [
+    {
+      "id": "t1",
+      "agent": "python-expert",
+      "prompt": "FrameScribe M1 (video core). DELIVERABLE: src/framescribe/video.py - frame extraction via ffmpeg (subprocess, no new deps), figure-activity detection from inter-frame difference on downscaled greyscale frames, boundary segmentation into figure-bearing segments, and stability-aware sampling that prefers the stable frame of each segment (compare to +/- neighbour frames). Public functions: extract_frames(video, out_dir, fps), activity_scores(frames), segment(scores, min_len, gap), sample_segment(frames, seg). Sources: video (path), frames (list of paths). Acceptance: functions import cleanly, are pure where possible, and are covered by tests/test_video.py. Do not add third-party runtime deps. Commit only src/framescribe/video.py.",
+      "deps": [],
+      "timeout_min": 45,
+      "retries": 1,
+      "auto": false,
+      "expect": {"commit": true, "files": ["src/framescribe/video.py"], "allow_no_match": false}
+    },
+    {
+      "id": "t2",
+      "agent": "python-expert",
+      "prompt": "FrameScribe M1 (describer interface). DELIVERABLE: src/framescribe/describe.py - a Describer protocol with describe(clip_frames, transcript) -> SegmentNotes (from framescribe.contract), a deterministic StubDescriber for tests, and a KiloCliDescriber that shells out to `kilo run` with a pinned model id (default kilo/google/gemma-4-31b-it), a timeout, and process-tree kill on timeout. Sources: framescribe.contract (SegmentNotes, CausalOverlay). Acceptance: Stub returns a valid SegmentNotes; the CLI describer builds the correct argv; covered by tests. Commit only src/framescribe/describe.py.",
+      "deps": ["t1"],
+      "timeout_min": 45,
+      "retries": 1,
+      "auto": false,
+      "expect": {"commit": true, "files": ["src/framescribe/describe.py"], "allow_no_match": false}
+    },
+    {
+      "id": "t3",
+      "agent": "python-expert",
+      "prompt": "FrameScribe M1 (assembler). DELIVERABLE: src/framescribe/assemble.py - assemble_markdown(segments) that renders a list of SegmentNotes as one Markdown document (title, per-segment blocks via SegmentNotes.to_markdown, transcript interleaving), plus align_transcript(transcript_path, segments) that slices a transcript (timestamped lines) to each segment window. Sources: framescribe.contract. Acceptance: deterministic output; covered by tests/test_assemble.py. Commit only src/framescribe/assemble.py.",
+      "deps": ["t1"],
+      "timeout_min": 45,
+      "retries": 1,
+      "auto": false,
+      "expect": {"commit": true, "files": ["src/framescribe/assemble.py"], "allow_no_match": false}
+    },
+    {
+      "id": "t4",
+      "agent": "python-expert",
+      "prompt": "FrameScribe M1 (CLI). DELIVERABLE: src/framescribe/cli.py and src/framescribe/__main__.py - a `python -m framescribe run VIDEO --out DIR [--describer stub|kilo] [--model ID]` entrypoint that wires extract_frames -> activity_scores -> segment -> sample_segment -> Describer -> assemble_markdown and writes notes.md plus a segments.json. Sources: video.py, describe.py, assemble.py. Acceptance: `python -m framescribe --help` works; a stub run over a tiny sample video produces notes.md. Commit only src/framescribe/cli.py and src/framescribe/__main__.py.",
+      "deps": ["t1", "t2", "t3"],
+      "timeout_min": 45,
+      "retries": 1,
+      "auto": false,
+      "expect": {"commit": true, "files": ["src/framescribe/cli.py", "src/framescribe/__main__.py"], "allow_no_match": false}
+    },
+    {
+      "id": "t5",
+      "agent": "python-expert",
+      "prompt": "FrameScribe M1 (tests). DELIVERABLE: tests/test_video.py and tests/test_assemble.py - deterministic tests using generated fixture frames (Pillow, dev dep) for activity/segmentation/sampling, and for Markdown assembly + transcript alignment. Sources: framescribe.video, framescribe.assemble, framescribe.contract. Acceptance: `uv run pytest` passes with no network. Commit only tests/test_video.py and tests/test_assemble.py.",
+      "deps": ["t1", "t2", "t3", "t4"],
+      "timeout_min": 45,
+      "retries": 1,
+      "auto": false,
+      "expect": {"commit": true, "files": ["tests/test_video.py", "tests/test_assemble.py"], "allow_no_match": false}
+    }
+  ]
+}

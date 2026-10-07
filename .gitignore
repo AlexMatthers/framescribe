@@ -21,6 +21,9 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
+# kilo orchestration worktrees / run state
+.kilo/
+
 # local data / outputs
 data/
 runs/

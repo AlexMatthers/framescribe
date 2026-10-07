@@ -1,0 +1,147 @@
+{
+  "manifest": "E:/mnemosyne/auxiliary-projects/p002/plan/m1-engine-manifest.json",
+  "original_sha256": "0033cd2f0244b6e13b54d9bab900f49443c1cbb7ae21c8edaa17f01649d2a05a",
+  "manifest_sha256": "0033cd2f0244b6e13b54d9bab900f49443c1cbb7ae21c8edaa17f01649d2a05a",
+  "verdict": "GREEN",
+  "linter": [
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t1",
+        "anchor": "expect.files:src/framescribe/video.py"
+      },
+      "problem": "glob 'src/framescribe/video.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:src/framescribe/video.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t2",
+        "anchor": "expect.files:src/framescribe/describe.py"
+      },
+      "problem": "glob 'src/framescribe/describe.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:src/framescribe/describe.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t3",
+        "anchor": "expect.files:src/framescribe/assemble.py"
+      },
+      "problem": "glob 'src/framescribe/assemble.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:src/framescribe/assemble.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t4",
+        "anchor": "expect.files:src/framescribe/cli.py"
+      },
+      "problem": "glob 'src/framescribe/cli.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:src/framescribe/cli.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t4",
+        "anchor": "expect.files:src/framescribe/__main__.py"
+      },
+      "problem": "glob 'src/framescribe/__main__.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:src/framescribe/__main__.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t5",
+        "anchor": "expect.files:tests/test_video.py"
+      },
+      "problem": "glob 'tests/test_video.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:tests/test_video.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L04",
+      "severity": "MEDIUM",
+      "class": "expect-unsatisfiable/1,7",
+      "target": {
+        "kind": "task",
+        "task_id": "t5",
+        "anchor": "expect.files:tests/test_assemble.py"
+      },
+      "problem": "glob 'tests/test_assemble.py' matches no repo path and no task produces it",
+      "evidence": "expect.files:tests/test_assemble.py",
+      "recommended_action": "fix the glob or add the producing task",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L06",
+      "severity": "MEDIUM",
+      "class": "ungrounded-anchor/2",
+      "target": {
+        "kind": "task",
+        "task_id": "t1",
+        "anchor": "prompt:tests/test_video.py"
+      },
+      "problem": "prompt references 'tests/test_video.py', which is neither on disk nor produced by this task or its deps",
+      "evidence": "prompt:tests/test_video.py",
+      "recommended_action": "fix the path or add the producing dependency",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    },
+    {
+      "id": "L06",
+      "severity": "MEDIUM",
+      "class": "ungrounded-anchor/2",
+      "target": {
+        "kind": "task",
+        "task_id": "t3",
+        "anchor": "prompt:tests/test_assemble.py"
+      },
+      "problem": "prompt references 'tests/test_assemble.py', which is neither on disk nor produced by this task or its deps",
+      "evidence": "prompt:tests/test_assemble.py",
+      "recommended_action": "fix the path or add the producing dependency",
+      "auto_fixable": false,
+      "blocks_dispatch": true
+    }
+  ],
+  "remediated": null,
+  "reviewer": null,
+  "blocking": [],
+  "generated_utc": "2026-10-07T01:04:06Z"
+}

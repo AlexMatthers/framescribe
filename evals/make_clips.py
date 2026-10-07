@@ -13,9 +13,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from make_figures import SMALL, W, _arrow, _box, _circle
 from PIL import Image, ImageDraw
-
-from make_figures import FONT, SMALL, W, _arrow, _box, _circle
 
 ROOT = Path(__file__).resolve().parent
 CLIPS = ROOT / "clips"
