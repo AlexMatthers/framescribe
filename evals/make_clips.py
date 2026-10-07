@@ -47,6 +47,13 @@ OU = {"label": "Output", "xy": (850, 250, 1040, 330)}
 DA = {"label": "Data", "xy": (60, 240, 240, 320)}
 BA = {"label": "Baseline", "xy": (380, 90, 580, 170)}
 OO = {"label": "Ours", "xy": (380, 390, 580, 470)}
+# c2-specific boxes with DISTINCT positions (Encoder and Latent must not overlap).
+IN2 = {"label": "Input", "xy": (20, 250, 150, 330)}
+EN2 = {"label": "Encoder", "xy": (180, 250, 320, 330)}
+LA2 = {"label": "Latent", "xy": (350, 250, 490, 330)}
+LA2H = {"label": "Latent", "xy": (350, 250, 490, 330), "highlight": True}
+DE2 = {"label": "Decoder", "xy": (520, 250, 660, 330)}
+OU2 = {"label": "Output", "xy": (690, 250, 830, 330)}
 
 CLIPS_DEF = [
     {
@@ -70,11 +77,11 @@ CLIPS_DEF = [
     {
         "id": "c2-bottleneck-highlight",
         "frames": [
-            ([IN], []),
-            ([IN, EN], []),
-            ([IN, EN, LA], [("Input", "Encoder")]),
-            ([IN, EN, LA, DE], [("Input", "Encoder"), ("Encoder", "Latent")]),
-            ([IN, EN, LA, DE, OU],
+            ([IN2], []),
+            ([IN2, EN2], []),
+            ([IN2, EN2, LA2], [("Input", "Encoder")]),
+            ([IN2, EN2, LA2, DE2], [("Input", "Encoder"), ("Encoder", "Latent")]),
+            ([IN2, EN2, LA2H, DE2, OU2],
              [("Input", "Encoder"), ("Encoder", "Latent"), ("Latent", "Decoder"),
               ("Decoder", "Output")]),
         ],

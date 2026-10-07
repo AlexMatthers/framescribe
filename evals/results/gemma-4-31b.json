@@ -1,0 +1,121 @@
+[
+  {
+    "figure_id": "c1-pipeline-build",
+    "final_state": "A linear pipeline diagram flowing from Input to Encoder to Output.",
+    "build_order": [
+      "Input box",
+      "Encoder box",
+      "Arrow from Input to Encoder",
+      "Output box",
+      "Arrow from Encoder to Output"
+    ],
+    "overlays": [],
+    "diagram": {
+      "labels": [
+        "Input",
+        "Encoder",
+        "Output"
+      ],
+      "connections": [
+        [
+          "Input",
+          "Encoder"
+        ],
+        [
+          "Encoder",
+          "Output"
+        ]
+      ],
+      "overlays": []
+    }
+  },
+  {
+    "figure_id": "c2-bottleneck-highlight",
+    "final_state": "An autoencoder-style pipeline from Input to Latent to Decoder to Output, with the Latent box highlighted in red.",
+    "build_order": [
+      "Input box",
+      "Latent box",
+      "Arrow from Input to Latent",
+      "Red highlight around Latent box",
+      "Decoder box",
+      "Arrow from Latent to Decoder",
+      "Output box",
+      "Arrow from Decoder to Output"
+    ],
+    "overlays": [
+      {
+        "kind": "highlight",
+        "description": "the Latent box"
+      }
+    ],
+    "diagram": {
+      "labels": [
+        "Input",
+        "Latent",
+        "Decoder",
+        "Output"
+      ],
+      "connections": [
+        [
+          "Input",
+          "Latent"
+        ],
+        [
+          "Latent",
+          "Decoder"
+        ],
+        [
+          "Decoder",
+          "Output"
+        ]
+      ],
+      "overlays": [
+        {
+          "kind": "highlight",
+          "target": "Latent"
+        }
+      ]
+    }
+  },
+  {
+    "figure_id": "c3-compare-callout",
+    "final_state": "A comparison diagram where Data flows to both a Baseline and an Ours box, with a red '2x faster' callout next to Ours.",
+    "build_order": [
+      "Data box",
+      "Baseline box",
+      "Arrow from Data to Baseline",
+      "Ours box",
+      "Arrow from Data to Ours",
+      "Red '2x faster' callout"
+    ],
+    "overlays": [
+      {
+        "kind": "callout",
+        "description": "2x faster"
+      }
+    ],
+    "diagram": {
+      "labels": [
+        "Data",
+        "Baseline",
+        "Ours"
+      ],
+      "connections": [
+        [
+          "Data",
+          "Baseline"
+        ],
+        [
+          "Data",
+          "Ours"
+        ]
+      ],
+      "overlays": [
+        {
+          "kind": "callout",
+          "target": "Ours"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,120 @@
+[
+  {
+    "figure_id": "c1-pipeline-build",
+    "final_state": "A left-to-right pipeline of three boxes, Input - Encoder - Output, connected by two directed arrows.",
+    "build_order": [
+      "Input box",
+      "Encoder box",
+      "Arrow Input to Encoder",
+      "Output box",
+      "Arrow Encoder to Output"
+    ],
+    "overlays": [],
+    "diagram": {
+      "labels": [
+        "Input",
+        "Encoder",
+        "Output"
+      ],
+      "connections": [
+        [
+          "Input",
+          "Encoder"
+        ],
+        [
+          "Encoder",
+          "Output"
+        ]
+      ],
+      "overlays": []
+    }
+  },
+  {
+    "figure_id": "c2-bottleneck-highlight",
+    "final_state": "A left-to-right pipeline Input - Latent - Decoder - Output in which the Latent (bottleneck) box is outlined in red.",
+    "build_order": [
+      "Input box",
+      "Middle box appears labeled Encoder and is shown labeled Latent from frame_02 onward",
+      "Arrow Input to Latent",
+      "Red highlight border on the Latent box",
+      "Decoder box",
+      "Arrow Latent to Decoder",
+      "Arrow Decoder to Output"
+    ],
+    "overlays": [
+      {
+        "kind": "highlight",
+        "description": "the Latent box, outlined in red to emphasise the bottleneck"
+      }
+    ],
+    "diagram": {
+      "labels": [
+        "Input",
+        "Latent",
+        "Decoder",
+        "Output"
+      ],
+      "connections": [
+        [
+          "Input",
+          "Latent"
+        ],
+        [
+          "Latent",
+          "Decoder"
+        ],
+        [
+          "Decoder",
+          "Output"
+        ]
+      ],
+      "overlays": [
+        {
+          "kind": "highlight",
+          "target": "Latent"
+        }
+      ]
+    }
+  },
+  {
+    "figure_id": "c3-compare-callout",
+    "final_state": "A Data box with directed arrows fanning out to a Baseline box and an Ours box, with the red callout '2x faster' placed beside Ours.",
+    "build_order": [
+      "Data box",
+      "Baseline box",
+      "Ours box",
+      "Arrow Data to Baseline",
+      "Arrow Data to Ours",
+      "Red '2x faster' callout beside the Ours box"
+    ],
+    "overlays": [
+      {
+        "kind": "callout",
+        "description": "red text '2x faster' beside the Ours box"
+      }
+    ],
+    "diagram": {
+      "labels": [
+        "Data",
+        "Baseline",
+        "Ours"
+      ],
+      "connections": [
+        [
+          "Data",
+          "Baseline"
+        ],
+        [
+          "Data",
+          "Ours"
+        ]
+      ],
+      "overlays": [
+        {
+          "kind": "callout",
+          "target": "Ours"
+        }
+      ]
+    }
+  }
+]

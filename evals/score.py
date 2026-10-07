@@ -9,11 +9,13 @@ the mean. Results live in evals/results/<model>.json (a JSON array of per-clip o
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 GT = {g["id"]: g for g in json.loads((ROOT / "clips-ground-truth.json").read_text(encoding="utf-8"))}
+EXCLUDE: set[str] = set()
 
 
 def norm(s: str) -> str:
@@ -40,6 +42,8 @@ def score(clips: list) -> dict:
     by = {str(c.get("figure_id")): c for c in clips if isinstance(c, dict)}
     tl = tlh = tc = tch = to = toh = tb = tbh = valid = 0
     for fid, g in GT.items():
+        if fid in EXCLUDE:
+            continue
         c = by.get(fid)
         if not c:
             continue
@@ -86,6 +90,12 @@ def score(clips: list) -> dict:
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--exclude", default="", help="comma-separated clip ids to skip")
+    args = ap.parse_args()
+    global EXCLUDE
+    EXCLUDE = {x.strip() for x in args.exclude.split(",") if x.strip()}
+
     results = ROOT / "results"
     results.mkdir(exist_ok=True)
     rows = []

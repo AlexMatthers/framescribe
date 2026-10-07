@@ -1,0 +1,118 @@
+[
+  {
+    "figure_id": "c1-pipeline-build",
+    "final_state": "A linear pipeline connects Input to Encoder to Output.",
+    "build_order": [
+      "Input box",
+      "Encoder box",
+      "arrow from Input to Encoder",
+      "Output box",
+      "arrow from Encoder to Output"
+    ],
+    "overlays": [],
+    "diagram": {
+      "labels": [
+        "Input",
+        "Encoder",
+        "Output"
+      ],
+      "connections": [
+        [
+          "Input",
+          "Encoder"
+        ],
+        [
+          "Encoder",
+          "Output"
+        ]
+      ],
+      "overlays": []
+    }
+  },
+  {
+    "figure_id": "c2-bottleneck-highlight",
+    "final_state": "A linear pipeline connects Input to Latent to Decoder to Output with the Latent box highlighted in red.",
+    "build_order": [
+      "Input box",
+      "Encoder box",
+      "Latent box with red highlight and arrow from Input to Latent",
+      "Decoder box",
+      "Output box with arrows from Latent to Decoder and from Decoder to Output"
+    ],
+    "overlays": [
+      {
+        "kind": "highlight",
+        "description": "red highlight around the Latent box"
+      }
+    ],
+    "diagram": {
+      "labels": [
+        "Input",
+        "Latent",
+        "Decoder",
+        "Output"
+      ],
+      "connections": [
+        [
+          "Input",
+          "Latent"
+        ],
+        [
+          "Latent",
+          "Decoder"
+        ],
+        [
+          "Decoder",
+          "Output"
+        ]
+      ],
+      "overlays": [
+        {
+          "kind": "highlight",
+          "target": "Latent"
+        }
+      ]
+    }
+  },
+  {
+    "figure_id": "c3-compare-callout",
+    "final_state": "Data branches to Baseline and Ours with a red 2x faster callout beside Ours.",
+    "build_order": [
+      "Data box",
+      "Baseline box",
+      "arrow from Data to Baseline",
+      "Ours box",
+      "arrow from Data to Ours",
+      "red callout 2x faster beside Ours"
+    ],
+    "overlays": [
+      {
+        "kind": "callout",
+        "description": "red text 2x faster beside Ours"
+      }
+    ],
+    "diagram": {
+      "labels": [
+        "Data",
+        "Baseline",
+        "Ours"
+      ],
+      "connections": [
+        [
+          "Data",
+          "Baseline"
+        ],
+        [
+          "Data",
+          "Ours"
+        ]
+      ],
+      "overlays": [
+        {
+          "kind": "callout",
+          "target": "Ours"
+        }
+      ]
+    }
+  }
+]
