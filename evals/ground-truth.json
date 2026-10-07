@@ -1,0 +1,155 @@
+[
+  {
+    "id": "f1-pipeline",
+    "labels": [
+      "Input",
+      "Encoder",
+      "Output"
+    ],
+    "connections": [
+      [
+        "Input",
+        "Encoder"
+      ],
+      [
+        "Encoder",
+        "Output"
+      ]
+    ],
+    "overlays": []
+  },
+  {
+    "id": "f2-bottleneck",
+    "labels": [
+      "Input",
+      "Encoder",
+      "Latent",
+      "Decoder",
+      "Output"
+    ],
+    "connections": [
+      [
+        "Input",
+        "Encoder"
+      ],
+      [
+        "Encoder",
+        "Latent"
+      ],
+      [
+        "Latent",
+        "Decoder"
+      ],
+      [
+        "Decoder",
+        "Output"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "highlight",
+        "target": "Latent"
+      }
+    ]
+  },
+  {
+    "id": "f3-compare",
+    "labels": [
+      "Data",
+      "Baseline",
+      "Ours"
+    ],
+    "connections": [
+      [
+        "Data",
+        "Baseline"
+      ],
+      [
+        "Data",
+        "Ours"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "callout",
+        "target": "Ours"
+      }
+    ]
+  },
+  {
+    "id": "f4-loop",
+    "labels": [
+      "A",
+      "B",
+      "C"
+    ],
+    "connections": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "B",
+        "C"
+      ],
+      [
+        "C",
+        "A"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "annotation",
+        "target": "C"
+      }
+    ]
+  },
+  {
+    "id": "f5-flow",
+    "labels": [
+      "Data",
+      "Process",
+      "Result"
+    ],
+    "connections": [
+      [
+        "Data",
+        "Process"
+      ],
+      [
+        "Process",
+        "Result"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "circle",
+        "target": "Process"
+      }
+    ]
+  },
+  {
+    "id": "f6-decision",
+    "labels": [
+      "check x>0",
+      "yes path",
+      "no path"
+    ],
+    "connections": [
+      [
+        "check x>0",
+        "yes path"
+      ],
+      [
+        "check x>0",
+        "no path"
+      ]
+    ],
+    "overlays": [
+      {
+        "kind": "highlight",
+        "target": "check x>0"
+      }
+    ]
+  }
+]

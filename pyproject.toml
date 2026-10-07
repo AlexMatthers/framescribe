@@ -23,7 +23,11 @@ Repository = "https://github.com/AlexMatthers/framescribe"
 Issues = "https://github.com/AlexMatthers/framescribe/issues"
 
 [dependency-groups]
-dev = ["pytest>=8.0", "ruff>=0.6"]
+dev = [
+    "pillow>=12.3.0",
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
 
 [build-system]
 requires = ["uv_build>=0.9.18,<0.10.0"]
