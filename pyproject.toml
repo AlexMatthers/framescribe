@@ -1,0 +1,38 @@
+[project]
+name = "framescribe"
+version = "0.1.0"
+description = "Turn talk videos into diagrammatic, figure-aware Markdown notes."
+readme = "README.md"
+authors = [{ name = "AlexMatthers", email = "alex.matthers@gmail.com" }]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+keywords = ["video", "markdown", "notes", "diagram", "vision", "transcription", "llm"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Multimedia :: Video",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/AlexMatthers/framescribe"
+Repository = "https://github.com/AlexMatthers/framescribe"
+Issues = "https://github.com/AlexMatthers/framescribe/issues"
+
+[dependency-groups]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
